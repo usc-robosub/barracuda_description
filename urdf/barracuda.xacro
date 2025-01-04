@@ -2,6 +2,9 @@
 <robot name="barracuda" xmlns:xacro="http://www.ros.org/wiki/xacro">
    <!-- "Dummy" base link to eliminate root link inertia warning -->
 
+    <xacro:include filename="$(find your_package_name)/urdf/imu.xacro"/>
+
+
     <xacro:arg name="debug" default="0"/>
     <xacro:arg name="namespace" default="barracuda"/>
 
@@ -36,6 +39,8 @@
         <parent link="$(arg namespace)/base_link"/>
         <child link="$(arg namespace)/barracuda_link"/>
     </joint>
+
+    <xacro:imu_sensor parent_link="barracuda_link" imu_name="imu" namespace="$(arg namespace)"/>
 
     <gazebo>
         <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">

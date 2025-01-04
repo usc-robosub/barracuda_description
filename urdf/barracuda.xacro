@@ -2,7 +2,7 @@
 <robot name="barracuda" xmlns:xacro="http://www.ros.org/wiki/xacro">
    <!-- "Dummy" base link to eliminate root link inertia warning -->
 
-    <xacro:include filename="$(find your_package_name)/urdf/imu.xacro"/>
+    <xacro:include filename="$(find barracuda_description)/urdf/sensors.xacro"/>
 
 
     <xacro:arg name="debug" default="0"/>

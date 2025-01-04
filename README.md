@@ -9,5 +9,6 @@ To use this repository, clone this repo in a catkin workspace's source directory
 
 ## Dependencies
 
+ROS Packages:
 - [robot_state_publisher](https://wiki.ros.org/robot_state_publisher)
 - [xacro](https://wiki.ros.org/xacro)

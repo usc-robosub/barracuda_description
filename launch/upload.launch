@@ -1,0 +1,8 @@
+<launch>
+  <arg name="namespace" default="barracuda"/>
+  <arg name="debug" default="false"/>
+  <arg name="robot_description_file" default="$(find barracuda_description)/urdf/barracuda.xacro"/>
+
+  <param name="robot_description" command="$(find xacro)/xacro '$(arg robot_description_file)'"/>
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" respawn="true" output="screen" ns="barracuda"/>
+</launch>

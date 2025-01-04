@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<robot name="barracuda" xmlns:xacro="http://www.ros.org/wiki/xacro">
+   <!-- "Dummy" base link to eliminate root link inertia warning -->
+
+    <xacro:arg name="debug" default="0"/>
+    <xacro:arg name="namespace" default="barracuda"/>
+
+    <link name="$(arg namespace)/base_link"/>
+
+    <link name="$(arg namespace)/barracuda_link">
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="4762.7"/>
+            <inertia
+                ixx="7116.41" ixy="0.0" ixz="0.0"
+                iyy="6637.07" iyz="0.0"
+                izz="3134.17"/>
+        </inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 1.5708"/>
+            <geometry>
+                <mesh filename="file://$(find barracuda_description)/meshes/mantaray_base_link.stl" scale="1 1 1"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 1.5708"/>
+            <geometry>
+                <mesh filename="file://$(find barracuda_description)/meshes/mantaray_base_link.stl" scale="1 1 1"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="$(arg namespace)/barracuda_base_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <parent link="$(arg namespace)/base_link"/>
+        <child link="$(arg namespace)/barracuda_link"/>
+    </joint>
+
+    <gazebo>
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+            <robotNamespace>$(arg namespace)</robotNamespace>
+            <robotParam>$(arg namespace)</robotParam>
+        </plugin>
+    </gazebo>
+
+    <!-- Default joint state publisher -->
+    <gazebo>
+        <plugin name="uuv_joint_state_publisher" filename="libuuv_joint_state_publisher.so">
+            <robotNamespace>$(arg namespace)</robotNamespace>
+            <updateRate>50</updateRate>
+        </plugin>
+    </gazebo>
+</robot>

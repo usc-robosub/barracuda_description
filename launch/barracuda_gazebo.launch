@@ -3,7 +3,7 @@
   <arg name="gui" default="true"/>
   <arg name="paused" default="false"/>
   <arg name="world_name" default="$(find dave_worlds)/worlds/dave_ocean_waves.world"/>
-  <arg name="namespace" default="caldus"/>
+  <arg name="namespace" default="barracuda"/>
   <arg name="velocity_control" default="true"/>
   <arg name="joy_id" default="0"/>
   <arg name="debug" default="false"/>
@@ -68,12 +68,12 @@
   </include>
   <node name="spawn_barracuda" pkg="gazebo_ros" type="spawn_model"
         respawn="false" output="screen"
-        args="-urdf -x $(arg x) -y $(arg y) -z $(arg z) -R $(arg roll) -P $(arg pitch) -Y $(arg yaw) -model $(arg namespace) -param /robot_description"/>
+        args="-urdf -x $(arg x) -y $(arg y) -z $(arg z) -R $(arg roll) -P $(arg pitch) -Y $(arg yaw) -model $(arg namespace) -param robot_description"/>
 
   <!-- A joint state publisher plugin already is started with the model,
        no need to use the default joint state publisher. -->
   <!-- Robot state publisher subscribes to the custom joint state publisher -->
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true" output="screen"/>
+  <!-- <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true" output="screen" ns="$(arg namespace)"/> -->
 
   <!-- Publish a transform from world to map to work with robot localization node that uses ROS naming standards-->
   <node pkg="tf2_ros" type="static_transform_publisher" name="world_to_map" args="0 0 0 0 0 0 world map"/>

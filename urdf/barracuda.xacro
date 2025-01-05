@@ -1,13 +1,10 @@
 <?xml version="1.0"?>
 <robot name="barracuda" xmlns:xacro="http://www.ros.org/wiki/xacro">
-   <!-- "Dummy" base link to eliminate root link inertia warning -->
-
-    <xacro:include filename="$(find barracuda_description)/urdf/sensors.xacro"/>
-
 
     <xacro:arg name="debug" default="0"/>
     <xacro:arg name="namespace" default="barracuda"/>
 
+    <!-- "Dummy" base link to eliminate root link inertia warning -->
     <link name="$(arg namespace)/base_link"/>
 
     <link name="$(arg namespace)/barracuda_link">
@@ -40,7 +37,8 @@
         <child link="$(arg namespace)/barracuda_link"/>
     </joint>
 
-    <xacro:imu_sensor parent_link="barracuda_link" imu_name="imu" namespace="$(arg namespace)"/>
+    <xacro:include filename="$(find barracuda_description)/urdf/sensors.xacro"/>
+    <xacro:imu_sensor parent_link="$(arg namespace)/barracuda_link" imu_name="imu" namespace="$(arg namespace)"/>
 
     <gazebo>
         <plugin name="uuv_plugin" filename="libuuv_underwater_object_ros_plugin.so">
@@ -89,7 +87,7 @@
     <gazebo>
         <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
             <robotNamespace>$(arg namespace)</robotNamespace>
-            <robotParam>$(arg namespace)</robotParam>
+            <robotParam>/robot_description</robotParam>
         </plugin>
     </gazebo>
 

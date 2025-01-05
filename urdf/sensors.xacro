@@ -2,34 +2,34 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
   <!-- Macro for the IMU -->
-  <xacro:macro name="imu_sensor" params="parent_link imu_name">
+  <xacro:macro name="imu_sensor" params="parent_link imu_name namespace">
     <!-- IMU Link -->
-    <link name="${imu_name}_link">
+    <link name="${namespace}/${imu_name}_link">
     </link>
 
     <!-- Fixed Joint to Attach the IMU -->
-    <joint name="${imu_name}_joint" type="fixed">
-      <parent>${parent_link}</parent>
-      <child>${imu_name}_link</child>
+    <joint name="${namespace}/${imu_name}_joint" type="fixed">
+      <parent link="${parent_link}"/>
+      <child link="${namespace}/${imu_name}_link"/>
       <origin xyz="0 0 0.1" rpy="0 0 0"/>
     </joint>
 
     <!-- IMU Sensor -->
-    <gazebo reference="${imu_name}_link">
+    <gazebo reference="${namespace}/${imu_name}_link">
       <gravity>true</gravity>
       <sensor name="${imu_name}_sensor" type="imu">
         <always_on>true</always_on>
         <update_rate>100</update_rate>
         <visualize>true</visualize>
-        <topic>imu/data</topic>
+        <topic>${namespace}/${imu_name}/data</topic>
         <plugin filename="libgazebo_ros_imu_sensor.so" name="${imu_name}_plugin">
-          <topicName>$(arg namespace)/${imu_name}/data</topicName>
-          <bodyName>${imu_name}_link</bodyName>
+          <topicName>${namespace}/${imu_name}/data</topicName>
+          <bodyName>${namespace}/${imu_name}_link</bodyName>
           <updateRateHZ>100.0</updateRateHZ>
-          <gaussianNoise>0.0</gaussianNoise>
+          <gaussianNoise>2e-4</gaussianNoise>
           <xyzOffset>0 0 0</xyzOffset>
           <rpyOffset>0 0 0</rpyOffset>
-          <frameName>${imu_name}_link</frameName>
+          <frameName>${namespace}/${imu_name}_link</frameName>
           <initialOrientationAsReference>false</initialOrientationAsReference>
         </plugin>
       </sensor>

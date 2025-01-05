@@ -73,7 +73,7 @@
   <!-- A joint state publisher plugin already is started with the model,
        no need to use the default joint state publisher. -->
   <!-- Robot state publisher subscribes to the custom joint state publisher -->
-  <!-- <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true" output="screen" ns="$(arg namespace)"/> -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true" output="screen" ns="$(arg namespace)"/>
 
   <!-- Publish a transform from world to map to work with robot localization node that uses ROS naming standards-->
   <node pkg="tf2_ros" type="static_transform_publisher" name="world_to_map" args="0 0 0 0 0 0 world map"/>

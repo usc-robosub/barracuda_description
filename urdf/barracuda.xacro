@@ -4,6 +4,10 @@
     <xacro:arg name="debug" default="0"/>
     <xacro:arg name="namespace" default="barracuda"/>
 
+    <xacro:include filename="$(find uuv_descriptions)/urdf/common.urdf.xacro"/>
+    <xacro:include filename="$(find uuv_gazebo_ros_plugins)/urdf/thruster_snippets.xacro"/>
+    <xacro:property name="prop_mesh_file" value="file://$(find barracuda_description)/meshes/t100_thruster.dae"/>
+
     <!-- "Dummy" base link to eliminate root link inertia warning -->
     <link name="$(arg namespace)/base_link"/>
 
@@ -87,9 +91,53 @@
     <gazebo>
         <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
             <robotNamespace>$(arg namespace)</robotNamespace>
-            <robotParam>/robot_description</robotParam>
+            <robotParam>$(arg namespace)/robot_description</robotParam>
         </plugin>
     </gazebo>
+
+    <!-- FROM MANTARAY NEED CHANGE -->
+
+    <xacro:macro name="thruster_macro" params="thruster_id *origin">
+        <xacro:thruster_module_first_order_basic_fcn_macro
+            namespace="$(arg namespace)"
+            thruster_id="${thruster_id}"
+            mesh_filename="${prop_mesh_file}"
+            dyn_time_constant="0.05"
+            rotor_constant="0.00031">
+            <xacro:insert_block name="origin"/>
+        </xacro:thruster_module_first_order_basic_fcn_macro>
+    </xacro:macro>
+
+    <xacro:thruster_macro thruster_id="0">
+      <origin xyz="-0.25 -0.333 0.145" rpy="${90*d2r} 0 ${300*d2r}"/>
+    </xacro:thruster_macro>
+  
+    <xacro:thruster_macro thruster_id="1">
+      <origin xyz="0.25 -0.333 0.145" rpy="${90*d2r} 0 ${240*d2r}"/> 
+    </xacro:thruster_macro>
+    <xacro:thruster_macro thruster_id="2">
+      <origin xyz="0.25 0.333 0.145" rpy="${90*d2r} 0 ${120*d2r}"/>
+    </xacro:thruster_macro>
+
+    <xacro:thruster_macro thruster_id="3">
+      <origin xyz="-0.25 0.3333 0.145" rpy="${90*d2r} 0 ${60*d2r}"/>
+    </xacro:thruster_macro>
+  
+    <xacro:thruster_macro thruster_id="4">
+      <origin xyz="-0.25 0.19 0.19" rpy="0 ${90*d2r} 0"/>
+    </xacro:thruster_macro>
+  
+    <xacro:thruster_macro thruster_id="5">
+      <origin xyz="0.25 0.19 0.19" rpy="0 ${90*d2r} 0"/>
+    </xacro:thruster_macro>
+
+    <xacro:thruster_macro thruster_id="6">
+      <origin xyz="-0.25 -0.19 0.19" rpy="0 ${90*d2r} 0"/>
+    </xacro:thruster_macro>
+
+    <xacro:thruster_macro thruster_id="7">
+      <origin xyz="0.25 -0.19 0.19" rpy="0 ${90*d2r} 0"/>
+    </xacro:thruster_macro>
 
     <!-- Default joint state publisher -->
     <gazebo>

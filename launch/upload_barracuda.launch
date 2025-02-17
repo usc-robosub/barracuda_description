@@ -3,5 +3,5 @@
   <arg name="debug" default="false"/>
   <arg name="robot_description_file" default="$(find barracuda_description)/urdf/barracuda.xacro"/>
 
-  <param name="robot_description" command="$(find xacro)/xacro '$(arg robot_description_file)'"/>
+  <param name="$(arg namespace)/robot_description" command="$(find xacro)/xacro '$(arg robot_description_file)'"/>
 </launch>

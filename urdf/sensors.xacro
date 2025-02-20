@@ -39,14 +39,20 @@
   <!-- Macro for single sonar for the DVL  -->
   <xacro:macro name="dvl_single_sonar" params="namespace dvl_name index pitch yaw update_rate">
     <link name="${namespace}/${dvl_name}_sonar${index}_link">
+      <inertial>
+        <mass value="0.001" />
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <inertia ixx="0.000000017" ixy="0" ixz="0" iyy="0.000000017" iyz="0" izz="0.000000017" />
+      </inertial>
+      <!-- <xacro:no_collision /> -->
     </link>
 
     <joint name="${namespace}/${dvl_name}_sonar${index}_joint" type="revolute">
-      <origin xyz="0 0 0" rpy="0 ${pitch} ${yaw}"/>
-      <parent link="${namespace}/${dvl_name}_link"/>
-      <child link="${namespace}/${dvl_name}_sonar${index}_link"/>
-      <limit upper="0" lower="0" effort="0" velocity="0"/>
-      <axis xyz="1 0 0"/>
+      <origin xyz="0 0 0" rpy="0 ${pitch} ${yaw}" />
+      <parent link="${namespace}/${dvl_name}_link" />
+      <child link="${namespace}/${dvl_name}_sonar${index}_link" />
+      <limit upper="0" lower="0" effort="0" velocity="0" />
+      <axis xyz="1 0 0" />
     </joint>
 
     <gazebo reference="${namespace}/${dvl_name}_sonar${index}_link">
@@ -76,7 +82,7 @@
           </range>
         </ray>
 
-        <plugin name="${dvl_name}_sonar${index}" filename="libgazebo_ros_range.so">
+        <plugin filename="libgazebo_ros_range.so" name="${dvl_name}_sonar${index}">
           <gaussianNoise>0.005</gaussianNoise>
           <alwaysOn>true</alwaysOn>
           <updateRate>${update_rate}</updateRate>
@@ -93,6 +99,24 @@
   <xacro:macro name="dvl" params="parent_link dvl_name namespace">
     <!-- DVL Link -->
     <link name="${namespace}/${dvl_name}_link">
+      <inertial>
+        <mass value="8.8" />
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <inertia ixx="0.071732122" ixy="0" ixz="0" iyy="0.071732122" iyz="0" izz="0.055786544" />
+      </inertial>
+      <visual>
+        <geometry>
+          <mesh
+            filename="package://dave_sensor_models/models/teledyne_whn_uuvsim/meshes/WorkhorseNavigator.dae" />
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 1.5707963267948966 0" />
+      </visual>
+      <collision>
+        <geometry>
+          <cylinder length="0.2445" radius="0.1126" />
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 1.5707963267948966 0" />
+      </collision>
     </link>
 
     <!-- Fixed joint to attach the DVL-->
@@ -128,14 +152,18 @@
 
     <!-- DVL Sensor-->
     <gazebo reference="${namespace}/${dvl_name}_link">
-      <plugin name="libuuv_gazebo_dvl_plugin" filename="libuuv_gazebo_ros_dvl_plugin.so">
+      <plugin filename="libuuv_gazebo_ros_dvl_plugin.so" name="libuuv_gazebo_dvl_plugin">
         <robot_namespace>${namespace}</robot_namespace>	<!-- ROS topic & link namespace -->
+        <link_name>${parent_link}</link_name> <!-- (string, required): name of the body which holds
+        the IMU sensor -->
         <sensor_topic>${dvl_name}</sensor_topic> 		<!-- name of the sensor data ROS topic -->
         <update_rate>7</update_rate>		<!-- Hertz (should match beam plugin specs) -->
         <noise_sigma>0.005</noise_sigma>		<!-- Only used for coviariance matrix -->
-        <noise_amplitude>0.005</noise_amplitude>	<!-- Gaussian noise added to velocity vector components -->
+        <noise_amplitude>0.005</noise_amplitude>	<!-- Gaussian noise added to velocity vector
+        components -->
         <enable_gazebo_messages>false</enable_gazebo_messages>
-        <enable_local_ned_frame>false</enable_local_ned_frame>  <!-- Can use if a global NED frame is available -->
+        <enable_local_ned_frame>false</enable_local_ned_frame>  <!-- Can use if a global NED frame is
+        available -->
         <static_reference_frame>world</static_reference_frame>
         <!-- Declaring the links associated with individual sonar beams (see below)-->
         <beam_link_name_0>${namespace}/${dvl_name}_sonar0_link</beam_link_name_0>

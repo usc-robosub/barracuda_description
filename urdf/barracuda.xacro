@@ -54,11 +54,11 @@
             <link name="$(arg namespace)/base_link">
             <neutrally_buoyant>1</neutrally_buoyant>
             <!-- See eNovus technical specifications -->
-            <volume>1.8382</volume> <!-- This is a guess (similar size to Smilodon but heavier) -->
+            <volume>0.1</volume> <!-- This is a guess (similar size to Smilodon but heavier) -->
             <box>
-                <width>1.6</width>
-                <length>2.7</length>
-                <height>1.8</height>
+                <width>0.75</width>
+                <length>0.64</length>
+                <height>0.39</height>
             </box>
             <!-- Center of buoyancy is a guess, using same value as RexRov -->
             <center_of_buoyancy>0.0 0.0 0.3</center_of_buoyancy>

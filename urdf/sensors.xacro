@@ -11,7 +11,7 @@
     <joint name="${namespace}/${imu_name}_joint" type="fixed">
       <parent link="${parent_link}" />
       <child link="${namespace}/${imu_name}_link" />
-      <origin xyz="0 0 0.1" rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
     </joint>
 
     <!-- IMU Sensor -->
@@ -44,7 +44,6 @@
         <origin xyz="0 0 0" rpy="0 0 0" />
         <inertia ixx="0.000000017" ixy="0" ixz="0" iyy="0.000000017" iyz="0" izz="0.000000017" />
       </inertial>
-      <!-- <xacro:no_collision /> -->
     </link>
 
     <joint name="${namespace}/${dvl_name}_sonar${index}_joint" type="revolute">
@@ -76,8 +75,8 @@
             </vertical>
           </scan>
           <range>
-            <min>0.2</min>
-            <max>75</max>
+            <min>0.05</min>
+            <max>50</max>
             <resolution>0.01</resolution>
           </range>
         </ray>
@@ -100,20 +99,21 @@
     <!-- DVL Link -->
     <link name="${namespace}/${dvl_name}_link">
       <inertial>
-        <mass value="8.8" />
+        <mass value="0.105" />
         <origin xyz="0 0 0" rpy="0 0 0" />
         <inertia ixx="0.071732122" ixy="0" ixz="0" iyy="0.071732122" iyz="0" izz="0.055786544" />
       </inertial>
       <visual>
         <geometry>
-          <mesh
-            filename="package://dave_sensor_models/models/teledyne_whn_uuvsim/meshes/WorkhorseNavigator.dae" />
+          <mesh filename="file://$(find barracuda_description)/meshes/dvl.dae" >
+            <pose>0 0 0  0 1.5707963267948966 0</pose>
+          </mesh>
         </geometry>
         <origin xyz="0 0 0" rpy="0 1.5707963267948966 0" />
       </visual>
       <collision>
         <geometry>
-          <cylinder length="0.2445" radius="0.1126" />
+          <cylinder length="0.025" radius="0.033" />
         </geometry>
         <origin xyz="0 0 0" rpy="0 1.5707963267948966 0" />
       </collision>
@@ -123,41 +123,40 @@
     <joint name="${namespace}/${dvl_name}_joint" type="fixed">
       <parent link="${parent_link}" />
       <child link="${namespace}/${dvl_name}_link" />
-      <origin xyz="0 0 0" rpy="0 0 0" />
+      <origin xyz="0 0 -0.5" rpy="0 ${0.5*pi} 0" />
     </joint>
 
     <!-- DVL sonars -->
     <xacro:dvl_single_sonar
       namespace="${namespace}" dvl_name="${dvl_name}"
-      index="0" pitch="-0.4363" yaw="0.0" update_rate="7">
+      index="0" pitch="-0.4363" yaw="0.0" update_rate="10">
+    </xacro:dvl_single_sonar>
+
+    <xacro:dvl_single_sonar
+      namespace="${namespace}" dvl_name="${dvl_name}"
+      index="1" pitch="0.0" yaw="0.4363" update_rate="10">
     </xacro:dvl_single_sonar>
 
 
     <xacro:dvl_single_sonar
       namespace="${namespace}" dvl_name="${dvl_name}"
-      index="1" pitch="0.0" yaw="0.4363" update_rate="7">
+      index="2" pitch="0.4363" yaw="0.0" update_rate="10">
     </xacro:dvl_single_sonar>
 
 
     <xacro:dvl_single_sonar
       namespace="${namespace}" dvl_name="${dvl_name}"
-      index="2" pitch="0.4363" yaw="0.0" update_rate="7">
-    </xacro:dvl_single_sonar>
-
-
-    <xacro:dvl_single_sonar
-      namespace="${namespace}" dvl_name="${dvl_name}"
-      index="3" pitch="0.0" yaw="-0.4363" update_rate="7">
+      index="3" pitch="0.0" yaw="-0.4363" update_rate="10">
     </xacro:dvl_single_sonar>
 
     <!-- DVL Sensor-->
-    <gazebo reference="${namespace}/${dvl_name}_link">
+    <gazebo>
       <plugin filename="libuuv_gazebo_ros_dvl_plugin.so" name="libuuv_gazebo_dvl_plugin">
         <robot_namespace>${namespace}</robot_namespace>	<!-- ROS topic & link namespace -->
         <link_name>${parent_link}</link_name> <!-- (string, required): name of the body which holds
         the IMU sensor -->
         <sensor_topic>${dvl_name}</sensor_topic> 		<!-- name of the sensor data ROS topic -->
-        <update_rate>7</update_rate>		<!-- Hertz (should match beam plugin specs) -->
+        <update_rate>10</update_rate>		<!-- Hertz (should match beam plugin specs) -->
         <noise_sigma>0.005</noise_sigma>		<!-- Only used for coviariance matrix -->
         <noise_amplitude>0.005</noise_amplitude>	<!-- Gaussian noise added to velocity vector
         components -->

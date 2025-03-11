@@ -40,9 +40,9 @@
     <!-- Camera Center -->
     <link name="${namespace}/$(arg camera_name)_camera_center">
       <visual>
-        <origin xyz="${screw_offset_x} 0 ${screw_offset_z}" rpy="0 0 0" />
+        <origin xyz="${screw_offset_x} 0 ${screw_offset_z}" rpy="0 0 -${M_PI/2}" />
         <geometry>
-          <mesh filename="file://$(find barracuda_description)/meshes/$(arg camera_model).stl" />
+          <mesh filename="file://$(find barracuda_description)/meshes/$(arg camera_model).dae" />
         </geometry>
         <material name="zedm_mat">
           <color rgba="0 0 0 0.9" />
@@ -88,60 +88,6 @@
 
     <!-- Stereo Camera -->
     <gazebo reference="${namespace}/$(arg camera_name)_left_camera_frame">
-      <!-- <sensor type="multicamera" name="stereo_camera">
-        <update_rate>10.0</update_rate>
-        <camera name="left">
-          <horizontal_fov>1.089</horizontal_fov>
-          <image>
-            <width>1920</width>
-            <height>1080</height>
-            <format>R8G8B8</format>
-          </image>
-          <clip>
-            <near>0.04</near>
-            <far>100</far>
-          </clip>
-          <noise>
-            <type>gaussian</type>
-            <mean>0.0</mean>
-            <stddev>0.007</stddev>
-          </noise>
-        </camera>
-        <camera name="right">
-          <pose>0 0 0 0 0 0</pose>
-          <horizontal_fov>1.089</horizontal_fov>
-          <image>
-            <width>1920</width>
-            <height>1080</height>
-            <format>R8G8B8</format>
-          </image>
-          <clip>
-            <near>0.04</near>
-            <far>100</far>
-          </clip>
-          <noise>
-            <type>gaussian</type>
-            <mean>0.0</mean>
-            <stddev>0.007</stddev>
-          </noise>
-        </camera>
-        <plugin name="stereo_camera_controller" filename="libgazebo_ros_multicamera.so">
-          <alwaysOn>true</alwaysOn>
-          <updateRate>0.0</updateRate>
-          <cameraName>multisense_sl/camera</cameraName>
-          <imageTopicName>image_raw</imageTopicName>
-          <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-          <frameName>${namespace}/$(arg camera_name)_left_camera_optical_frame</frameName>
-          <rightFrameName>${namespace}/$(arg camera_name)_right_camera_optical_frame</rightFrameName>
-          <hackBaseline>0.07</hackBaseline>
-          <distortionK1>0.0</distortionK1>
-          <distortionK2>0.0</distortionK2>
-          <distortionK3>0.0</distortionK3>
-          <distortionT1>0.0</distortionT1>
-          <distortionT2>0.0</distortionT2>
-        </plugin>
-      </sensor> -->
-
       <sensor name="left_camera" type="depth">
         <pose>0 0 0 0 0 0</pose>
         <visualize>true</visualize>
@@ -159,20 +105,18 @@
             <far>100.0</far>
           </clip>
         </camera>
-        <plugin name="depth_camera_controller" filename="libgazebo_ros_depth_camera.so"
-          frame_name="${namespace}/$(arg camera_name)_left_camera_optical_frame">
+        <plugin name="depth_camera_controller" filename="libgazebo_ros_depth_camera.so">
           <alwaysOn>true</alwaysOn>
           <min_depth>0.1</min_depth>
           <max_depth>100.0</max_depth>
-
-          <attenuationR>0.01</attenuationR>
+          <!-- <attenuationR>0.01</attenuationR>
           <attenuationG>0.01</attenuationG>
-          <attenuationB>0.003</attenuationB>
+          <attenuationB>0.003</attenuationB> -->
 
-          <backgroundR>0</backgroundR>
+          <!-- <backgroundR>0</backgroundR>
           <backgroundG>0</backgroundG>
-          <backgroundB>0</backgroundB>
-          <!-- <robotNamespace>${namespace}</robotNamespace> -->
+          <backgroundB>0</backgroundB> -->
+          <robotNamespace>${namespace}</robotNamespace>
 
           <updateRate>10.0</updateRate>
           <frameName>${namespace}/$(arg camera_name)_left_camera_optical_frame</frameName>
@@ -184,7 +128,35 @@
       </sensor>
     </gazebo>
 
-    <!-- Depth Camera -->
+    <gazebo reference="$(arg namespace)/$(arg camera_name)_right_camera_frame">
+      <sensor name="right_camera" type="camera">
+        <pose>0 0 0 0 0 0</pose>
+        <visualize>true</visualize>
+        <update_rate>10</update_rate>
+        <camera>
+          <camera_name>${namespace}/$(arg camera_name)_right_camera_frame</camera_name>
+          <horizontal_fov>1.089</horizontal_fov> <!-- Need to change -->
+          <image>
+            <format>R8G8B8</format> <!-- Need to change -->
+            <width>1920</width>
+            <height>1080</height>
+          </image>
+          <clip> <!-- Minimum and maximum range the camera can see -->
+            <near>0.04</near>
+            <far>100.0</far>
+          </clip>
+        </camera>
+        <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+          <alwaysOn>true</alwaysOn>
+          <updateRate>10.0</updateRate>
+
+          <robotNamespace>${namespace}</robotNamespace>
+          <frameName>${namespace}/$(arg camera_name)_right_camera_optical_frame</frameName>
+          <cameraName>${namespace}/right_camera</cameraName>
+          <imageTopicName>right_camera_image</imageTopicName>
+        </plugin>
+      </sensor>
+    </gazebo>
 
   </xacro:macro>
 

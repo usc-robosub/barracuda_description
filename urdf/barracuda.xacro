@@ -22,13 +22,13 @@
         </inertial>
 
         <visual>
-            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <origin xyz="0 0 0" rpy="0 0 ${90*d2r}"/>
             <geometry>
                 <mesh filename="file://$(find barracuda_description)/meshes/barracuda_base_link.dae" scale="1 1 1"/>
             </geometry>
         </visual>
         <collision>
-            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <origin xyz="0 0 0" rpy="0 0 ${90*d2r}"/>
             <geometry>
                 <mesh filename="file://$(find barracuda_description)/meshes/barracuda_base_link.dae" scale="1 1 1"/>
             </geometry>

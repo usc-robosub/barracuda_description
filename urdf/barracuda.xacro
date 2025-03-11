@@ -43,11 +43,10 @@
 
     <xacro:include filename="$(find barracuda_description)/urdf/sensors.xacro"/>
     <xacro:imu_sensor parent_link="$(arg namespace)/barracuda_link" imu_name="imu" namespace="$(arg namespace)"/>
-    <xacro:dvl parent_link="$(arg namespace)/base_link" dvl_name="dvl" namespace="$(arg namespace)"/>
+    <xacro:dvl parent_link="$(arg namespace)/base_link" dvl_name="dvl" namespace="$(arg namespace)" />
 
     <xacro:include filename="$(find barracuda_description)/urdf/depth_camera.xacro"/>
     <xacro:depth_camera parent_link="$(arg namespace)/barracuda_link" namespace="$(arg namespace)"/>
-
 
     <gazebo>
         <plugin name="uuv_plugin" filename="libuuv_underwater_object_ros_plugin.so">

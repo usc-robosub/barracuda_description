@@ -123,7 +123,7 @@
     <joint name="${namespace}/${dvl_name}_joint" type="fixed">
       <parent link="${parent_link}" />
       <child link="${namespace}/${dvl_name}_link" />
-      <origin xyz="0 0 -0.5" rpy="0 ${0.5*pi} 0" />
+      <origin xyz="0 0 -0.15" rpy="0 ${0.5*pi} 0" />
     </joint>
 
     <!-- DVL sonars -->

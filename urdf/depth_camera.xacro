@@ -120,7 +120,7 @@
 
           <updateRate>15.0</updateRate>
           <frameName>${namespace}/$(arg camera_name)_left_camera_optical_frame</frameName>
-          <cameraName>${namespace}/left_camera</cameraName>
+          <cameraName>left_camera</cameraName>
           <imageTopicName>left_camera_image</imageTopicName>
           <pointCloudTopicName>zed_point_cloud</pointCloudTopicName>
           <depthImageTopicName>zed_image_depth</depthImageTopicName>
@@ -152,7 +152,7 @@
 
           <robotNamespace>${namespace}</robotNamespace>
           <frameName>${namespace}/$(arg camera_name)_right_camera_optical_frame</frameName>
-          <cameraName>${namespace}/right_camera</cameraName>
+          <cameraName>right_camera</cameraName>
           <imageTopicName>right_camera_image</imageTopicName>
         </plugin>
       </sensor>

@@ -14,11 +14,11 @@
     <link name="$(arg namespace)/barracuda_link">
         <inertial>
             <origin xyz="0 0 0" rpy="0 0 0"/>
-            <mass value="4762.7"/>
+            <mass value="36.3"/>
             <inertia
-                ixx="7116.41" ixy="0.0" ixz="0.0"
-                iyy="6637.07" iyz="0.0"
-                izz="3134.17"/>
+                ixx="2.5" ixy="0.0" ixz="0.0"
+                iyy="8.0" iyz="0.0"
+                izz="8.5"/>
         </inertial>
 
         <visual>
@@ -58,7 +58,7 @@
             <link name="$(arg namespace)/base_link">
             <neutrally_buoyant>1</neutrally_buoyant>
             <!-- See eNovus technical specifications -->
-            <volume>0.1</volume> <!-- This is a guess (similar size to Smilodon but heavier) -->
+            <volume>0.036</volume> <!-- Volume calculated for 80 lb sub with slight positive buoyancy -->
             <box>
                 <width>0.75</width>
                 <length>0.64</length>
@@ -70,22 +70,22 @@
                 <type>fossen</type>
                 <!-- Everything else in the model is pulled straight from Berg2012
                     (which means it's not even close for this vehicle) -->
-                <!-- Added mass: see p.28 in Berg2012 -->
+                <!-- Added mass: scaled down for 80 lb submarine -->
                 <added_mass>
-                779.79 -6.8773 -103.32  8.5426 -165.54 -7.8033
-                -6.8773    1222   51.29  409.44 -5.8488  62.726
-                -103.32   51.29  3659.9  6.1112 -386.42  10.774
-                8.5426  409.44  6.1112   534.9 -10.027  21.019
-                -165.54 -5.8488 -386.42 -10.027  842.69 -1.1162
-                -7.8033  62.726  10.775  21.019 -1.1162  224.32
+                15.0 -0.1 -2.0  0.2 -3.0 -0.15
+                -0.1  25.0  1.0  8.0 -0.1  1.2
+                -2.0   1.0 70.0  0.1 -7.5  0.2
+                0.2   8.0  0.1  10.0 -0.2  0.4
+                -3.0  -0.1 -7.5 -0.2  16.0 -0.02
+                -0.15  1.2  0.2  0.4 -0.02  4.5
                 </added_mass>
-                <!-- Linear damping: see p.31 in Berg2012 -->
+                <!-- Linear damping: scaled for smaller submarine -->
                 <linear_damping>
-                -74.82 -69.48 -728.4 -268.8 -309.77 -105
+                -15.0 -12.0 -35.0 -25.0 -20.0 -8.0
                 </linear_damping>
-                <!-- Non-linear damping: see p.30 in Berg2012 -->
+                <!-- Non-linear damping: scaled for smaller submarine -->
                 <quadratic_damping>
-                -748.22 -992.53 -1821.01 -672 -774.44 -523.27
+                -50.0 -65.0 -120.0 -45.0 -52.0 -35.0
                 </quadratic_damping>
             </hydrodynamic_model>
             </link>

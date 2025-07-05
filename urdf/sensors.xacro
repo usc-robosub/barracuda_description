@@ -105,8 +105,8 @@
       </inertial>
       <visual>
         <geometry>
-          <mesh filename="file://$(find barracuda_description)/meshes/dvl.dae" >
-            <pose>0 0 0  0 1.5707963267948966 0</pose>
+          <mesh filename="file://$(find barracuda_description)/meshes/dvl.dae">
+            <pose>0 0 0 0 1.5707963267948966 0</pose>
           </mesh>
         </geometry>
         <origin xyz="0 0 0" rpy="0 1.5707963267948966 0" />
@@ -177,6 +177,55 @@
       </plugin>
     </gazebo>
 
+  </xacro:macro>
+
+  <!-- Macro for the Imaging Sonar -->
+  <xacro:macro name="lidar" params="parent_link lidar_name namespace">
+    <!-- Imaging Sonar Link -->
+    <link name="${namespace}/${lidar_name}_link">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <mass value="0.125" />
+        <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001" />
+      </inertial>
+    </link>
+
+    <!-- Fixed Joint to Attach the Imaging Sonar -->
+    <joint name="${namespace}/${lidar_name}_joint" type="fixed">
+      <parent link="${parent_link}" />
+      <child link="${namespace}/${lidar_name}_link" />
+      <origin xyz="0 0 0.2" rpy="0 0 0" />
+    </joint>
+
+    <!-- Imaging Sonar Sensor -->
+    <gazebo reference="${namespace}/${lidar_name}_link">
+      <sensor type="ray" name="${lidar_name}_sensor">
+        <pose> 0 0 0 0 0 0 </pose>
+        <visualize>true</visualize>
+        <update_rate>10</update_rate>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>360</samples>
+              <min_angle>-3.14</min_angle>
+              <max_angle>3.14</max_angle>
+            </horizontal>
+          </scan>
+          <range>
+            <min>0.3</min>
+            <max>12</max>
+          </range>
+        </ray>
+        <plugin filename="libgazebo_ros_ray_sensor.so" name="imaging_sonar">
+          <ros>
+            <namespace>${namespace}</namespace>
+            <remapping>~/out:=scan</remapping>
+          </ros>
+          <output_type>sensor_msgs/LaserScan</output_type>
+          <frame_name>${namespace}/${lidar_name}_link</frame_name>
+        </plugin>
+      </sensor>
+    </gazebo>
   </xacro:macro>
 
 </robot>

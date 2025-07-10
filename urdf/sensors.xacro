@@ -216,13 +216,9 @@
             <max>12</max>
           </range>
         </ray>
-        <plugin filename="libgazebo_ros_ray_sensor.so" name="imaging_sonar">
-          <ros>
-            <namespace>${namespace}</namespace>
-            <remapping>~/out:=scan</remapping>
-          </ros>
-          <output_type>sensor_msgs/LaserScan</output_type>
-          <frame_name>${namespace}/${lidar_name}_link</frame_name>
+        <plugin filename="libgazebo_ros_laser.so" name="imaging_sonar">
+          <topicName>${namespace}/scan</topicName>
+          <frameName>${namespace}/${lidar_name}_link</frameName>
         </plugin>
       </sensor>
     </gazebo>

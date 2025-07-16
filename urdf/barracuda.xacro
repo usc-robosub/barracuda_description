@@ -4,8 +4,8 @@
     <xacro:arg name="debug" default="0"/>
     <xacro:arg name="namespace" default="barracuda"/>
 
-    <xacro:include filename="$(find uuv_descriptions)/urdf/common.urdf.xacro"/>
-    <xacro:include filename="$(find uuv_gazebo_ros_plugins)/urdf/thruster_snippets.xacro"/>
+    <xacro:include filename="$(find barracuda_description)/urdf/common.urdf.xacro"/>
+    <xacro:include filename="$(find barracuda_description)/urdf/thruster_snippets.xacro"/>
     <xacro:property name="prop_mesh_file" value="file://$(find barracuda_description)/meshes/t200_thruster.dae"/>
 
     <!-- "Dummy" base link to eliminate root link inertia warning -->

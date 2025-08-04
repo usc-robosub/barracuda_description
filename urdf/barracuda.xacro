@@ -13,7 +13,7 @@
 
     <link name="$(arg namespace)/barracuda_link">
         <inertial>
-            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <origin xyz="0 0 0" rpy="0 0 ${180*d2r}"/>
             <mass value="36.3"/>
             <inertia
                 ixx="2.5" ixy="0.0" ixz="0.0"
@@ -121,7 +121,7 @@
     
     <!--right mid-->
     <xacro:thruster_macro thruster_id="1">
-      <origin xyz="0.00525 -0.43515 0.0" rpy="${90*d2r} 0 ${180*d2r}"/>
+      <origin xyz="0.00525 -0.43515 0.0" rpy="${90*d2r} 0 0"/>
     </xacro:thruster_macro>
     
     <!--left top-->
@@ -131,7 +131,7 @@
   
     <!--left mid-->
     <xacro:thruster_macro thruster_id="3">
-      <origin xyz="0.00525 0.43515 0.0" rpy="${90*d2r} 0 ${180*d2r}"/> 
+      <origin xyz="0.00525 0.43515 0.0" rpy="${90*d2r} 0 0"/> 
     </xacro:thruster_macro>
 
     <!--front left-->

@@ -121,7 +121,7 @@
     
     <!--right mid-->
     <xacro:thruster_macro thruster_id="1">
-      <origin xyz="0.00525 -0.43515 0.0" rpy="${90*d2r} 0 0"/>
+      <origin xyz="0.00525 -0.43515 0.0" rpy="${90*d2r} 0 ${180*d2r}"/>
     </xacro:thruster_macro>
     
     <!--left top-->

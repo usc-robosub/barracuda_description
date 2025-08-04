@@ -13,7 +13,7 @@
 
     <link name="$(arg namespace)/barracuda_link">
         <inertial>
-            <origin xyz="0 0 0" rpy="0 0 ${180*d2r}"/>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
             <mass value="36.3"/>
             <inertia
                 ixx="2.5" ixy="0.0" ixz="0.0"

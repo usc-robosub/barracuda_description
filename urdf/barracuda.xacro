@@ -110,7 +110,7 @@
             parent_link="$(arg namespace)/barracuda_link"
             mesh_filename="${prop_mesh_file}"
             dyn_time_constant="0.05"
-            rotor_constant="0.00031">
+            rotor_constant="1">
             <xacro:insert_block name="origin"/>
         </xacro:thruster_module_first_order_basic_fcn_macro>
     </xacro:macro>

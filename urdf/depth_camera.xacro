@@ -14,12 +14,12 @@
     <xacro:arg name="cam_roll" default="0.0" />
     <xacro:arg name="cam_pitch" default="0.0" />
     <xacro:arg name="cam_yaw" default="0.0" />
-    <!-- <xacro:arg name="frame_id" value="base_link" /> -->
+    <!-- <xacro:arg name="frame_id" value="${namespace}/base_link" /> -->
     <xacro:arg name="gnss_frame" default="" />
     <!-- <xacro:property name="parent_link" default="" /> -->
 
-    <!-- <xacro:property name="parent" value="base_link" /> -->
-    <xacro:property name="frame_id" value="base_link" />
+    <!-- <xacro:property name="parent" value="${namespace}/base_link" /> -->
+    <xacro:property name="frame_id" value="${namespace}/base_link" />
     <xacro:property name="baseline" value="0.06" />
     <xacro:property name="height" value="0.0265" />
     <xacro:property name="bottom_slope" value="0.0" />
@@ -29,16 +29,16 @@
 
     <joint name="$(arg camera_name)_base_joint" type="fixed">
       <parent link="${parent_link}" />
-      <child link="${namespace}_$(arg camera_name)_base_link" />
+      <child link="${namespace}/$(arg camera_name)_base_link" />
       <origin xyz="$(arg cam_pos_x) $(arg cam_pos_y) $(arg cam_pos_z)"
         rpy="$(arg cam_roll) $(arg cam_pitch) $(arg cam_yaw)" />
     </joint>
 
     <!-- Camera Link -->
-    <link name="${namespace}_$(arg camera_name)_base_link" />
+    <link name="${namespace}/$(arg camera_name)_base_link" />
 
     <!-- Camera Center -->
-    <link name="${namespace}_$(arg camera_name)_camera_center">
+    <link name="${namespace}/$(arg camera_name)_camera_center">
       <visual>
         <origin xyz="${screw_offset_x} 0 ${screw_offset_z}" rpy="0 0 -${M_PI/2}" />
         <geometry>
@@ -51,49 +51,49 @@
     </link>
 
     <joint name="$(arg camera_name)_camera_center_joint" type="fixed">
-      <parent link="${namespace}_$(arg camera_name)_base_link" />
-      <child link="${namespace}_$(arg camera_name)_camera_center" />
+      <parent link="${namespace}/$(arg camera_name)_base_link" />
+      <child link="${namespace}/$(arg camera_name)_camera_center" />
       <origin xyz="0 0 ${height/2}" rpy="0 ${bottom_slope} 0" />
     </joint>
 
     <!-- Left Camera -->
-    <link name="${namespace}_$(arg camera_name)_left_camera_frame" />
+    <link name="${namespace}/$(arg camera_name)_left_camera_frame" />
     <joint name="$(arg camera_name)_left_camera_joint" type="fixed">
-      <parent link="${namespace}_$(arg camera_name)_camera_center" />
-      <child link="${namespace}_$(arg camera_name)_left_camera_frame" />
+      <parent link="${namespace}/$(arg camera_name)_camera_center" />
+      <child link="${namespace}/$(arg camera_name)_left_camera_frame" />
       <origin xyz="${optical_offset_x} ${baseline/2} 0" rpy="0 0 0" />
     </joint>
 
-    <link name="${namespace}_$(arg camera_name)_left_camera_optical_frame" />
+    <link name="${namespace}/$(arg camera_name)_left_camera_optical_frame" />
     <joint name="$(arg camera_name)_left_camera_optical_joint" type="fixed">
       <origin xyz="0 0 0" rpy="-${M_PI/2} 0.0 -${M_PI/2}" />
-      <parent link="${namespace}_$(arg camera_name)_left_camera_frame" />
-      <child link="${namespace}_$(arg camera_name)_left_camera_optical_frame" />
+      <parent link="${namespace}/$(arg camera_name)_left_camera_frame" />
+      <child link="${namespace}/$(arg camera_name)_left_camera_optical_frame" />
     </joint>
 
     <!-- Right Camera -->
-    <link name="${namespace}_$(arg camera_name)_right_camera_frame" />
+    <link name="${namespace}/$(arg camera_name)_right_camera_frame" />
     <joint name="$(arg camera_name)_right_camera_joint" type="fixed">
-      <parent link="${namespace}_$(arg camera_name)_camera_center" />
-      <child link="${namespace}_$(arg camera_name)_right_camera_frame" />
+      <parent link="${namespace}/$(arg camera_name)_camera_center" />
+      <child link="${namespace}/$(arg camera_name)_right_camera_frame" />
       <origin xyz="${optical_offset_x} -${baseline/2} 0" rpy="0 0 0" />
     </joint>
 
-    <link name="${namespace}_$(arg camera_name)_right_camera_optical_frame" />
+    <link name="${namespace}/$(arg camera_name)_right_camera_optical_frame" />
     <joint name="$(arg camera_name)_right_camera_optical_joint" type="fixed">
       <origin xyz="0 0 0" rpy="-${M_PI/2} 0.0 -${M_PI/2}" />
-      <parent link="${namespace}_$(arg camera_name)_right_camera_frame" />
-      <child link="${namespace}_$(arg camera_name)_right_camera_optical_frame" />
+      <parent link="${namespace}/$(arg camera_name)_right_camera_frame" />
+      <child link="${namespace}/$(arg camera_name)_right_camera_optical_frame" />
     </joint>
 
     <!-- Stereo Camera -->
-    <gazebo reference="${namespace}_$(arg camera_name)_left_camera_frame">
+    <gazebo reference="${namespace}/$(arg camera_name)_left_camera_frame">
       <sensor name="left_camera" type="depth">
         <pose>0 0 0 0 0 0</pose>
         <visualize>true</visualize>
         <update_rate>15</update_rate>
         <camera>
-          <camera_name>${namespace}_$(arg camera_name)_left_camera_frame</camera_name>
+          <camera_name>${namespace}/$(arg camera_name)_left_camera_frame</camera_name>
           <horizontal_fov>1.089</horizontal_fov> <!-- Need to change -->
           <image>
             <format>B8G8R8</format> <!-- Need to change -->
@@ -119,7 +119,7 @@
           <robotNamespace>${namespace}</robotNamespace>
 
           <updateRate>15.0</updateRate>
-          <frameName>${namespace}_$(arg camera_name)_left_camera_optical_frame</frameName>
+          <frameName>${namespace}/$(arg camera_name)_left_camera_optical_frame</frameName>
           <cameraName>left_camera</cameraName>
           <imageTopicName>left_camera_image</imageTopicName>
           <pointCloudTopicName>zed_point_cloud</pointCloudTopicName>
@@ -128,13 +128,13 @@
       </sensor>
     </gazebo>
 
-    <gazebo reference="$(arg namespace)_$(arg camera_name)_right_camera_frame">
+    <gazebo reference="$(arg namespace)/$(arg camera_name)_right_camera_frame">
       <sensor name="right_camera" type="camera">
         <pose>0 0 0 0 0 0</pose>
         <visualize>true</visualize>
         <update_rate>15</update_rate>
         <camera>
-          <camera_name>${namespace}_$(arg camera_name)_right_camera_frame</camera_name>
+          <camera_name>${namespace}/$(arg camera_name)_right_camera_frame</camera_name>
           <horizontal_fov>1.089</horizontal_fov> <!-- Need to change -->
           <image>
             <format>R8G8B8</format> <!-- Need to change -->
@@ -151,7 +151,7 @@
           <updateRate>15.0</updateRate>
 
           <robotNamespace>${namespace}</robotNamespace>
-          <frameName>${namespace}_$(arg camera_name)_right_camera_optical_frame</frameName>
+          <frameName>${namespace}/$(arg camera_name)_right_camera_optical_frame</frameName>
           <cameraName>right_camera</cameraName>
           <imageTopicName>right_camera_image</imageTopicName>
         </plugin>

@@ -85,14 +85,14 @@
             mesh_filename
             *dynamics
             *conversion">
-    <joint name="${namespace}_thruster_${thruster_id}_joint" type="continuous">
+    <joint name="${namespace}/thruster_${thruster_id}_joint" type="continuous">
       <xacro:insert_block name="origin"/>
       <axis xyz="1 0 0"/>
       <parent link="${parent_link}"/>
-      <child link="${namespace}_thruster_${thruster_id}"/>
+      <child link="${namespace}/thruster_${thruster_id}"/>
     </joint>
 
-    <link name="${namespace}_thruster_${thruster_id}">
+    <link name="${namespace}/thruster_${thruster_id}">
       <xacro:box_inertial x="0" y="0" z="0" mass="0.001">
         <origin xyz="0 0 0" rpy="0 0 0"/>
       </xacro:box_inertial>
@@ -114,15 +114,15 @@
 
     <gazebo>
       <plugin name="${namespace}_${thruster_id}_thruster_model" filename="libuuv_thruster_ros_plugin.so">
-        <linkName>${namespace}_thruster_${thruster_id}</linkName>
-        <jointName>${namespace}_thruster_${thruster_id}_joint</jointName>
+        <linkName>${namespace}/thruster_${thruster_id}</linkName>
+        <jointName>${namespace}/thruster_${thruster_id}_joint</jointName>
         <thrusterID>${thruster_id}</thrusterID>
         <xacro:insert_block name="dynamics"/>
         <xacro:insert_block name="conversion"/>
       </plugin>
     </gazebo>
 
-    <gazebo reference="${namespace}_thruster_${thruster_id}">
+    <gazebo reference="${namespace}/thruster_${thruster_id}">
       <selfCollide>false</selfCollide>
     </gazebo>
   </xacro:macro>

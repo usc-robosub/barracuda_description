@@ -197,6 +197,13 @@
       <origin xyz="0 0 0.2" rpy="0 0 0" />
     </joint>
 
+    <link name="sonar_frame"/>
+
+    <joint name="${namespace}/${lidar_name}_sonar_frame_joint" type="fixed">
+      <parent link="${namespace}/${lidar_name}_link" />
+      <child link="sonar_frame" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
+
     <!-- Imaging Sonar Sensor -->
     <gazebo reference="${namespace}/${lidar_name}_link">
       <sensor type="ray" name="${lidar_name}_sensor">

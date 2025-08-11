@@ -50,6 +50,19 @@
     <xacro:include filename="$(find barracuda_description)/urdf/depth_camera.xacro"/>
     <xacro:depth_camera parent_link="$(arg namespace)/barracuda_link" namespace="$(arg namespace)"/>
 
+    <xacro:macro name="thruster_macro" params="thruster_id *origin">
+        <xacro:thruster_module_first_order_basic_fcn_macro
+            namespace="$(arg namespace)"
+            thruster_id="${thruster_id}"
+            parent_link="$(arg namespace)/barracuda_link"
+            mesh_filename="${prop_mesh_file}"
+            dyn_time_constant="0.05"
+            rotor_constant="1">
+            <xacro:insert_block name="origin"/>
+        </xacro:thruster_module_first_order_basic_fcn_macro>
+    </xacro:macro>
+
+
     <!--right top-->
     <xacro:thruster_macro thruster_id="0">
       <origin xyz="0.0 0.322 0.1535" rpy="${90*d2r} ${90*d2r} ${180*d2r}"/>
@@ -142,18 +155,6 @@
     </gazebo>
 
     <!-- FROM MANTARAY NEED CHANGE -->
-
-    <xacro:macro name="thruster_macro" params="thruster_id *origin">
-        <xacro:thruster_module_first_order_basic_fcn_macro
-            namespace="$(arg namespace)"
-            thruster_id="${thruster_id}"
-            parent_link="$(arg namespace)/barracuda_link"
-            mesh_filename="${prop_mesh_file}"
-            dyn_time_constant="0.05"
-            rotor_constant="1">
-            <xacro:insert_block name="origin"/>
-        </xacro:thruster_module_first_order_basic_fcn_macro>
-    </xacro:macro>
 
 
 

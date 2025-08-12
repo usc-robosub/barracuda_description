@@ -1,5 +1,11 @@
 <launch>
     <include file="$(find barracuda_description)/launch/upload_barracuda.launch"/>
 
+    <!-- Publish default joint states for non-Gazebo usage -->
+    <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher" ns="barracuda" output="screen">
+        <param name="use_gui" value="false"/>
+        <param name="rate" value="30"/>
+    </node>
+
     <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" respawn="true" output="screen" ns="barracuda"/>
 </launch>

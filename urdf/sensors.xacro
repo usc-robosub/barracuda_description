@@ -227,7 +227,7 @@
                   </range>
               </ray>
               <plugin filename="libgazebo_ros_laser.so" name="imaging_sonar">
-                  <topicName>${namespace}/scan</topicName>
+                  <topicName>${namespace}/sonar/scan</topicName>
                   <frameName>${namespace}/${lidar_name}_link</frameName>
               </plugin>
           </sensor>

@@ -113,19 +113,19 @@
         </xacro:thruster_module_first_order_basic_fcn_macro>
     </xacro:macro>
 
-    <!--back left-->
+    <!--left top-->
     <xacro:thruster_macro thruster_id="0">
+      <origin xyz="0.0 0.322 0.1535" rpy="${90*d2r} ${90*d2r} ${180*d2r}"/>
+    </xacro:thruster_macro>
+
+    <!--back left-->
+    <xacro:thruster_macro thruster_id="1">
       <origin xyz="-0.30916 0.36341 0.0" rpy="${90*d2r} ${135*d2r} ${-131.51*d2r}"/>
     </xacro:thruster_macro>
     
     <!--left mid-->
-    <xacro:thruster_macro thruster_id="1">
-      <origin xyz="-0.00525 0.43515 0.0" rpy="${90*d2r} 0 ${180*d2r}"/>
-    </xacro:thruster_macro>
-
-    <!--left top-->
     <xacro:thruster_macro thruster_id="2">
-      <origin xyz="0.0 0.322 0.1535" rpy="${90*d2r} ${90*d2r} ${180*d2r}"/>
+      <origin xyz="-0.00525 0.43515 0.0" rpy="${90*d2r} 0 ${180*d2r}"/>
     </xacro:thruster_macro>
     
     <!--front left-->
@@ -133,21 +133,21 @@
       <origin xyz="0.30916 0.36341 0.0" rpy="${-45*d2r} ${45*d2r} ${131.51*d2r}"/>
     </xacro:thruster_macro>
 
-    <!--front right-->
+    <!--right mid-->
     <xacro:thruster_macro thruster_id="4">
+      <origin xyz="-0.00525 -0.43515 0.0" rpy="${90*d2r} 0 ${180*d2r}"/> 
+    </xacro:thruster_macro>
+
+    <!--front right-->
+    <xacro:thruster_macro thruster_id="5">
       <origin xyz="0.30916 -0.36341 0.0" rpy="${-90*d2r} ${45*d2r} ${-131.51*d2r}"/>
     </xacro:thruster_macro>
     
     <!--right top-->
-    <xacro:thruster_macro thruster_id="5">
+    <xacro:thruster_macro thruster_id="6">
       <origin xyz="0.0 -0.322 0.1535" rpy="${-90*d2r} ${90*d2r} ${180*d2r}"/>
     </xacro:thruster_macro>
   
-    <!--right mid-->
-    <xacro:thruster_macro thruster_id="6">
-      <origin xyz="-0.00525 -0.43515 0.0" rpy="${90*d2r} 0 ${180*d2r}"/> 
-    </xacro:thruster_macro>
-
     <!--back right-->
     <xacro:thruster_macro thruster_id="7">
       <origin xyz="-0.30916 -0.36341 0.0" rpy="${-90*d2r} ${135*d2r} ${131.51*d2r}"/>

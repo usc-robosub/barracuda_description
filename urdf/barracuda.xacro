@@ -89,9 +89,9 @@
     </xacro:thruster_macro>
 
     <!--back left-->
-    <xacro:thruster_macro thruster_id="5">
-      <origin xyz="0.30916 -0.36341 0.0" rpy="${-90*d2r} ${45*d2r} ${-131.51*d2r}"/>
-    </xacro:thruster_macro>
+    <!-- <xacro:thruster_macro thruster_id="5"> -->
+    <!--   <origin xyz="0.30916 -0.36341 0.0" rpy="${-90*d2r} ${45*d2r} ${-131.51*d2r}"/> -->
+    <!-- </xacro:thruster_macro> -->
   
     <!--front right-->
     <xacro:thruster_macro thruster_id="6">

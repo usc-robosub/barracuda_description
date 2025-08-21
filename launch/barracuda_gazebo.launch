@@ -24,6 +24,7 @@
     <arg name="headless" value="false"/>
     <arg name="debug" value="$(arg debug)"/>
     <arg name="verbose" value="$(arg verbose)"/>
+    <arg name="extra_gazebo_args" value="/barracuda/dvl_twist:=/barracuda/dvl/twist" />
   </include>
 
   <!-- use ned frame north east down -->

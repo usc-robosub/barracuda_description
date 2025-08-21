@@ -6,14 +6,14 @@
     <xacro:property name="M_PI" value="3.1415926535897931" />
 
     <!-- <xacro:arg name="namespace" default="barracuda" /> -->
-    <xacro:arg name="camera_name" default="zed" />
+    <xacro:arg name="camera_name" default="zedm" />
     <xacro:arg name="camera_model" default="zedm" />
-    <xacro:arg name="cam_pos_x" default="-0.3" />
+    <xacro:arg name="cam_pos_x" default="0.3" />
     <xacro:arg name="cam_pos_y" default="0.0" />
     <xacro:arg name="cam_pos_z" default="0.0" />
     <xacro:arg name="cam_roll" default="0.0" />
     <xacro:arg name="cam_pitch" default="0.0" />
-    <xacro:arg name="cam_yaw" default="${M_PI}" />
+    <xacro:arg name="cam_yaw" default="0.0" />
     <!-- <xacro:arg name="frame_id" value="${namespace}/base_link" /> -->
     <xacro:arg name="gnss_frame" default="" />
     <!-- <xacro:property name="parent_link" default="" /> -->

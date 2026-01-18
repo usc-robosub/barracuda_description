@@ -1,0 +1,13 @@
+
+services:
+  barracuda_description:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: barracuda_description
+    volumes:
+      - ./urdf:/urdf
+      - $HOME/.ssh:/root/.ssh
+      - $XAUTHORITY:/root/.Xauthority:ro
+    environment:
+      - DISPLAY

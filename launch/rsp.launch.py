@@ -1,3 +1,5 @@
+# Adapted from Articulated Robotics' URDF example launch file (https://github.com/joshnewans/urdf_example/blob/main/launch/rsp.launch.py)
+
 import os
 
 import xacro
@@ -41,15 +43,6 @@ def generate_launch_description():
                 default_value="false",
                 description="Use sim time if true",
             ),
-            IncludeLaunchDescription(
-                PathJoinSubstitution(
-                    [
-                        FindPackageShare("foxglove_bridge"),
-                        "launch",
-                        "foxglove_bridge_launch.xml",
-                    ]
-                ),
-            ),
-            node_robot_state_publisher,
+           node_robot_state_publisher,
         ]
     )
